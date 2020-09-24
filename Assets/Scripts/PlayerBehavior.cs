@@ -13,9 +13,10 @@ public class PlayerBehavior : MonoBehaviour
     private Vector2 mousePos;
     private Vector2 lookDir;
 
+
     private PlayerInputs playerinputs;
 
-
+    [SerializeField] private float fireRate = 0.0f;
     [SerializeField] private float speed = 0.0f;
     [SerializeField] private float maxSpeed = 0.0f;
     [SerializeField] private Transform FirePoint;
@@ -58,11 +59,18 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnShootPerformed (InputAction.CallbackContext obj)
     {
+
         GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
         Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
         rbBullet.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
 
         Destroy(bullet, 1);
+
+    }
+
+    private void OnShootCanceled (InputAction.CallbackContext obj)
+
+    {
 
     }
 
@@ -83,6 +91,7 @@ public class PlayerBehavior : MonoBehaviour
         playerinputs = new PlayerInputs();
         playerinputs.Enable();
         playerinputs.Player.Shoot.performed += OnShootPerformed;
+        playerinputs.Player.Shoot.canceled += OnShootCanceled;
         playerinputs.Player.Move.performed += OnMovePerformed;
         playerinputs.Player.MousePosition.performed += OnLookPerformed;
         playerinputs.Player.Move.canceled += OnMoveCancelled;
