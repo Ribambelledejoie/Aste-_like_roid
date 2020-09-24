@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108ab15afbfaff944ae820ec2064790b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screenShake: {fileID: 6836593601692156092, guid: 7fb67a557a80ad743b928631c472ba62, type: 3}
+  hitEffect: {fileID: 5591711435912361078, guid: edc767f22ec86064e8e400fac3386c10, type: 3}
 --- !u!114 &-8063314991979153285
 MonoBehaviour:
   m_ObjectHideFlags: 0
