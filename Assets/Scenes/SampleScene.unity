@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593ce3a4dadc48a4db33f5a8b82f1d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0
   speed: 15
   maxSpeed: 20
   FirePoint: {fileID: 474743569}
@@ -1583,7 +1584,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 10
       minScalar: 0
       maxCurve:
         serializedVersion: 2
