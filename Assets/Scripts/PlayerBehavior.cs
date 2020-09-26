@@ -12,11 +12,12 @@ public class PlayerBehavior : MonoBehaviour
     //private Mouse mouse;
     private Vector2 mousePos;
     private Vector2 lookDir;
+    private bool isShooting;
 
 
     private PlayerInputs playerinputs;
 
-    [SerializeField] private float fireRate = 0.0f;
+
     [SerializeField] private float speed = 0.0f;
     [SerializeField] private float maxSpeed = 0.0f;
     [SerializeField] private Transform FirePoint;
@@ -24,6 +25,9 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private float bulletForce = 20.0f;
     [SerializeField] private Camera cam;
     [SerializeField, Range(0,360)] private int angleCorrection;
+
+    [SerializeField] private float coolDownCounter = 1.0f;
+    [SerializeField] private bool coolingDown = false;
 
     // Start is called before the first frame update
 
@@ -57,22 +61,37 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
+
+    private void OnShootCanceled(InputAction.CallbackContext obj)
+
+    {
+        if (coolDownCounter <= 0)
+        {
+            coolingDown = false;
+            Debug.Log("tu tire pas");
+        }
+    }
+
     private void OnShootPerformed (InputAction.CallbackContext obj)
     {
 
-        GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
-        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-        rbBullet.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
+        if (coolDownCounter >= 0)
+        {
 
-        Destroy(bullet, 1);
+            GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
+
+            Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
+
+            rbBullet.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
+
+            Destroy(bullet, 1);
+
+            Debug.Log("tu tire");
+
+        }
 
     }
 
-    private void OnShootCanceled (InputAction.CallbackContext obj)
-
-    {
-
-    }
 
     private void OnJumpPerformed(InputAction.CallbackContext obj)
     {
