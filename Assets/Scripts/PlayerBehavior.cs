@@ -26,8 +26,9 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField, Range(0,360)] private int angleCorrection;
 
-    [SerializeField] private float coolDownCounter = 1.0f;
-    [SerializeField] private bool coolingDown = false;
+    [SerializeField] private float fireRate = 1.0f;
+    [SerializeField] private float nextFire = 0.0f;
+
 
     // Start is called before the first frame update
 
@@ -65,18 +66,15 @@ public class PlayerBehavior : MonoBehaviour
     private void OnShootCanceled(InputAction.CallbackContext obj)
 
     {
-        if (coolDownCounter <= 0)
-        {
-            coolingDown = false;
-            Debug.Log("tu tire pas");
-        }
+        
     }
 
     private void OnShootPerformed (InputAction.CallbackContext obj)
     {
 
-        if (coolDownCounter >= 0)
+        if (Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
 
             GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
 
@@ -87,8 +85,8 @@ public class PlayerBehavior : MonoBehaviour
             Destroy(bullet, 1);
 
             Debug.Log("tu tire");
-
         }
+
 
     }
 

@@ -342,7 +342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593ce3a4dadc48a4db33f5a8b82f1d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 100
   speed: 15
   maxSpeed: 20
   FirePoint: {fileID: 474743569}
@@ -350,6 +349,8 @@ MonoBehaviour:
   bulletForce: 200
   cam: {fileID: 519420031}
   angleCorrection: 90
+  fireRate: 1
+  nextFire: 0
 --- !u!50 &224602831
 Rigidbody2D:
   serializedVersion: 4
@@ -5518,7 +5519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &730918968
 Animator:
   serializedVersion: 3
