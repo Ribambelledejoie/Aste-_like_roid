@@ -63,17 +63,12 @@ public class PlayerBehavior : MonoBehaviour
     }
 
 
-    private void OnShootCanceled(InputAction.CallbackContext obj)
-
-    {
-        
-    }
-
     private void OnShootPerformed (InputAction.CallbackContext obj)
     {
 
         if (Time.time > nextFire)
         {
+
             nextFire = Time.time + fireRate;
 
             GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
@@ -90,6 +85,12 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
+
+    private void OnShootCanceled(InputAction.CallbackContext obj)
+
+    {
+
+    }
 
     private void OnJumpPerformed(InputAction.CallbackContext obj)
     {
