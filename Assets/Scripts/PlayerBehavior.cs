@@ -12,7 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     //private Mouse mouse;
     private Vector2 mousePos;
     private Vector2 lookDir;
-    private bool isShooting;
+    private bool isShooting = false;
 
 
     private PlayerInputs playerinputs;
@@ -28,6 +28,7 @@ public class PlayerBehavior : MonoBehaviour
 
     [SerializeField] private float fireRate = 1.0f;
     [SerializeField] private float nextFire = 0.0f;
+
 
 
     // Start is called before the first frame update
@@ -69,7 +70,9 @@ public class PlayerBehavior : MonoBehaviour
         if (Time.time > nextFire)
         {
 
-            nextFire = Time.time + fireRate;
+            isShooting = true;
+
+            
 
             GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
 
@@ -89,7 +92,9 @@ public class PlayerBehavior : MonoBehaviour
     private void OnShootCanceled(InputAction.CallbackContext obj)
 
     {
+        isShooting = false;
 
+        Debug.Log("tu tire pas");
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext obj)
@@ -128,6 +133,11 @@ public class PlayerBehavior : MonoBehaviour
     //Magnitude = x et y
     private void Update()
     {
+        if(isShooting)
+        {
+            nextFire = Time.time + fireRate;
+            Debug.Log("NIQUETOI");
+        }
 
         anim.SetFloat("Speed", rb.velocity.magnitude);
 
@@ -136,6 +146,13 @@ public class PlayerBehavior : MonoBehaviour
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
     }
+
+    /*
+    private IEnumerator TimerRoutine()
+    {
+        yield return new WaitForSeconds(100);
+    }
+    */
 
     // Update is called once per frame
 
