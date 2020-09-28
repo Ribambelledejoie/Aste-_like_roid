@@ -72,8 +72,6 @@ public class PlayerBehavior : MonoBehaviour
 
             isShooting = true;
 
-            
-
             GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
 
             Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
@@ -136,6 +134,7 @@ public class PlayerBehavior : MonoBehaviour
         if(isShooting)
         {
             nextFire = Time.time + fireRate;
+
             Debug.Log("NIQUETOI");
         }
 
