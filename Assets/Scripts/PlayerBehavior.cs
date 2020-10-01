@@ -12,7 +12,9 @@ public class PlayerBehavior : MonoBehaviour
     //private Mouse mouse;
     private Vector2 mousePos;
     private Vector2 lookDir;
-   // private bool isShooting = false;
+
+    private bool isShooting = false;
+    private float timeRemaining = 1.0f;
 
 
     private PlayerInputs playerinputs;
@@ -24,10 +26,10 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletForce = 20.0f;
     [SerializeField] private Camera cam;
-    [SerializeField, Range(0,360)] private int angleCorrection;
+    [SerializeField, Range(0, 360)] private int angleCorrection;
 
-   // [SerializeField] private float fireRate = 1.0f;
-    // [SerializeField] private float nextFire = 0.0f;
+    [SerializeField] private float fireRate = 1.0f;
+
 
 
 
@@ -64,23 +66,16 @@ public class PlayerBehavior : MonoBehaviour
     }
 
 
-    private void OnShootPerformed (InputAction.CallbackContext obj)
+    private void OnShootPerformed(InputAction.CallbackContext obj)
     {
 
-       // if (Time.time > nextFire)
-        //{
+        isShooting = true;
 
-          //  isShooting = true;
+        if (timeRemaining == fireRate)
+        {
+            Shoot();
+        }
 
-            GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
-
-            Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-
-            rbBullet.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
-
-            Destroy(bullet, 1);
-
-        //}
 
 
     }
@@ -89,11 +84,7 @@ public class PlayerBehavior : MonoBehaviour
     private void OnShootCanceled(InputAction.CallbackContext obj)
 
     {
-        /*
         isShooting = false;
-
-        Debug.Log("tu tire pas");
-        */
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext obj)
@@ -101,6 +92,16 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
+    private void Shoot()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
+
+        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
+
+        rbBullet.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
+
+        Destroy(bullet, 1);
+    }
 
     /// <summary>
     /// blablablablabla
@@ -121,9 +122,17 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
+    private void OnValidate()
+    {
+        if (fireRate < 0)
+        {
+            fireRate = 0;
+        }
+    }
+
     void Start()
     {
-
+        timeRemaining = fireRate;
         rb = GetComponent<Rigidbody2D>();
         transform.position = new Vector2(0.0f, -2.0f);
         anim = GetComponent<Animator>();
@@ -132,14 +141,20 @@ public class PlayerBehavior : MonoBehaviour
     //Magnitude = x et y
     private void Update()
     {
-        /*
-        if(isShooting)
-        {
-            nextFire = Time.time + fireRate;
 
-            Debug.Log("NIQUETOI");
+        if (isShooting)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                timeRemaining = fireRate;
+                Shoot();
+            }
         }
-        */
+
 
         anim.SetFloat("Speed", rb.velocity.magnitude);
 
@@ -158,7 +173,7 @@ public class PlayerBehavior : MonoBehaviour
 
     // Update is called once per frame
 
-        //addforce ===== rigibody obligatoire !
+    //addforce ===== rigibody obligatoire !
     void FixedUpdate()
     {
 
@@ -168,5 +183,10 @@ public class PlayerBehavior : MonoBehaviour
         {
             rb.AddForce(speed * direction);
         }
+    }
+
+    private void OnDestroy()
+    {
+        playerinputs.Disable();
     }
 }

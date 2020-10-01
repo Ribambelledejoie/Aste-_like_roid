@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 9046924752319752620}
   - component: {fileID: 4651020913342571010}
   - component: {fileID: -8063314991979153285}
-  m_Layer: 0
+  - component: {fileID: -8551097846527621279}
+  m_Layer: 12
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +119,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -189,6 +190,19 @@ MonoBehaviour:
     m_DissipationMode: 2
     m_DissipationDistance: 1000
     m_PropagationSpeed: 343
+--- !u!114 &-8551097846527621279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639250773975818566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c1906d76d016c4f971ebb8430a3e4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoint: 1
 --- !u!1 &8231112130959533949
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +214,7 @@ GameObject:
   - component: {fileID: 7863754625956345599}
   - component: {fileID: 4372495021851986537}
   - component: {fileID: 3440266628767711939}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Reactor (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

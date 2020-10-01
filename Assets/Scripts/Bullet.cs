@@ -24,13 +24,6 @@ public class Bullet : MonoBehaviour
     }
     */
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity); //Quaternion.identity = no rotation
-        Destroy(effect, 0.85f);
-        Destroy(gameObject);
-    }
-
     // Update is called once per frame
     void Update()
     {
