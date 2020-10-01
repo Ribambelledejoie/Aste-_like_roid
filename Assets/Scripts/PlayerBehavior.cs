@@ -12,7 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     //private Mouse mouse;
     private Vector2 mousePos;
     private Vector2 lookDir;
-    private bool isShooting = false;
+   // private bool isShooting = false;
 
 
     private PlayerInputs playerinputs;
@@ -26,8 +26,8 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField, Range(0,360)] private int angleCorrection;
 
-    [SerializeField] private float fireRate = 1.0f;
-    [SerializeField] private float nextFire = 0.0f;
+   // [SerializeField] private float fireRate = 1.0f;
+    // [SerializeField] private float nextFire = 0.0f;
 
 
 
@@ -67,10 +67,10 @@ public class PlayerBehavior : MonoBehaviour
     private void OnShootPerformed (InputAction.CallbackContext obj)
     {
 
-        if (Time.time > nextFire)
-        {
+       // if (Time.time > nextFire)
+        //{
 
-            isShooting = true;
+          //  isShooting = true;
 
             GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
 
@@ -80,8 +80,7 @@ public class PlayerBehavior : MonoBehaviour
 
             Destroy(bullet, 1);
 
-            Debug.Log("tu tire");
-        }
+        //}
 
 
     }
@@ -90,9 +89,11 @@ public class PlayerBehavior : MonoBehaviour
     private void OnShootCanceled(InputAction.CallbackContext obj)
 
     {
+        /*
         isShooting = false;
 
         Debug.Log("tu tire pas");
+        */
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext obj)
@@ -131,12 +132,14 @@ public class PlayerBehavior : MonoBehaviour
     //Magnitude = x et y
     private void Update()
     {
+        /*
         if(isShooting)
         {
             nextFire = Time.time + fireRate;
 
             Debug.Log("NIQUETOI");
         }
+        */
 
         anim.SetFloat("Speed", rb.velocity.magnitude);
 
