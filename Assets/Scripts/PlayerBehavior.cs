@@ -33,8 +33,6 @@ public class PlayerBehavior : MonoBehaviour
 
 
 
-    // Start is called before the first frame update
-
     private void OnMoveCancelled(InputAction.CallbackContext obj)
     {
         direction = new Vector2(0.0f, 0.0f);
@@ -124,6 +122,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnValidate()
     {
+        // on veut faire en sorte que la valeur de la puissance de feu ne descende pas sous zéro
         if (fireRate < 0)
         {
             fireRate = 0;
@@ -132,7 +131,9 @@ public class PlayerBehavior : MonoBehaviour
 
     void Start()
     {
+        //ici, le temps qu'il reste est égale à la vitesse à laquelle le joueur va pouvoir tirer
         timeRemaining = fireRate;
+
         rb = GetComponent<Rigidbody2D>();
         transform.position = new Vector2(0.0f, -2.0f);
         anim = GetComponent<Animator>();
@@ -141,15 +142,18 @@ public class PlayerBehavior : MonoBehaviour
     //Magnitude = x et y
     private void Update()
     {
-
+        //Si on est entrain de tirer
         if (isShooting)
         {
+            //Et s'il reste du temps
             if (timeRemaining > 0)
             {
+                //On enlève du temps au temps qu'il reste - Time.deltaTime = temps en seconde depuis la dernière frame
                 timeRemaining -= Time.deltaTime;
             }
             else
             {
+                //et sinon, 
                 timeRemaining = fireRate;
                 Shoot();
             }
@@ -164,14 +168,6 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
-    /*
-    private IEnumerator TimerRoutine()
-    {
-        yield return new WaitForSeconds(100);
-    }
-    */
-
-    // Update is called once per frame
 
     //addforce ===== rigibody obligatoire !
     void FixedUpdate()
@@ -187,6 +183,7 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
+        //Lorsque le joueur meurt, on lui désactive ses inputs
         playerinputs.Disable();
     }
 }

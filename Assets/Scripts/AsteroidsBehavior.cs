@@ -11,10 +11,12 @@ public class AsteroidsBehavior : MonoBehaviour
 
     private void Start()
     {
+        //ici on Get le Rigidbody2D dans le start
         rb = GetComponent<Rigidbody2D>();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //quand l'Asteroid va "Entrer en collision" avec un autre objet, le bool shouldStop va passer true
         if(collision.gameObject.tag == "PlayerBullet")
         {
             shouldStop = true;
@@ -23,6 +25,7 @@ public class AsteroidsBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //On précise ici que si shouldStop est true, la velocity de l'asteroid passe à zéro
         if (shouldStop)
         {
             rb.velocity = Vector2.zero;

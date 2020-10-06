@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4614283553968119370}
   - component: {fileID: 4614283553968119373}
   - component: {fileID: 1391440553804020117}
+  - component: {fileID: 739053772}
   m_Layer: 11
   m_Name: Enemy_Rock
   m_TagString: Enemies
@@ -154,4 +155,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c1906d76d016c4f971ebb8430a3e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 5
+  healthPoint: 10
+--- !u!114 &739053772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614283553968119366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f82469b73517b048ba059a1e10ebc80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

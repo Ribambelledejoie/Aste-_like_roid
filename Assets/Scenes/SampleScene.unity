@@ -698,6 +698,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 224602826, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}
+      propertyPath: healthPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 491346966741800705, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -759,6 +763,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1391440553804020117, guid: 9bac6ccfee69efd4890a59229b4bb488, type: 3}
+      propertyPath: healthPoint
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4614283553968119366, guid: 9bac6ccfee69efd4890a59229b4bb488, type: 3}
       propertyPath: m_Name
       value: Enemy_Rock
