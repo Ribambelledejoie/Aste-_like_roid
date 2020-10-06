@@ -6,6 +6,7 @@ public class Spawn : MonoBehaviour
 {
 
     private PolygonCollider2D playGround;
+    [SerializeField] private int enemyCount;
     
 
     // Start is called before the first frame update
@@ -34,11 +35,11 @@ public class Spawn : MonoBehaviour
             otherPoint = points[randomIndex - 1];
         }
 
+        while (enemyCount < 10)
+        {
+            
+        }
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
