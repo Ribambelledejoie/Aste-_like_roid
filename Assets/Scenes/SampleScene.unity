@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &51619711
 Transform:
   m_ObjectHideFlags: 0
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc40d05326bdb784889a089e23a17517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyCount: 0
 --- !u!1 &1777568808
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,9 +699,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 224602826, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}
-      propertyPath: healthPoint
-      value: 1
+    - target: {fileID: 668746109, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.43
       objectReference: {fileID: 0}
     - target: {fileID: 491346966741800705, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}
       propertyPath: m_Name

@@ -6,6 +6,7 @@ public class Spawn : MonoBehaviour
 {
 
     private PolygonCollider2D playGround;
+    private GameObject enemy;
     [SerializeField] private int enemyCount;
     
 
@@ -35,11 +36,12 @@ public class Spawn : MonoBehaviour
             otherPoint = points[randomIndex - 1];
         }
 
+        /*
         while (enemyCount < 10)
         {
-            
+            Instantiate(enemy, chosenPoint, otherPoint); 
         }
-
+        */
     }
 
 }
