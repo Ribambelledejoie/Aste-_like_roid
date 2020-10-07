@@ -16,9 +16,10 @@ public class PlayerBehavior : MonoBehaviour
     private bool isShooting = false;
     private float timeRemaining = 1.0f;
 
-
     private PlayerInputs playerinputs;
 
+    private CircleCollider2D shootArea;
+    private bool inShootArea;
 
     [SerializeField] private float speed = 0.0f;
     [SerializeField] private float maxSpeed = 0.0f;
@@ -73,7 +74,6 @@ public class PlayerBehavior : MonoBehaviour
         {
             Shoot();
         }
-
 
 
     }

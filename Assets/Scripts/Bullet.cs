@@ -5,6 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
+
+
     Cinemachine.CinemachineImpulseSource screenShake;
     [SerializeField] private GameObject hitEffect;
 
