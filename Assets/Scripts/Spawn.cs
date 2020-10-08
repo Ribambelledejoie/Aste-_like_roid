@@ -6,26 +6,32 @@ public class Spawn : MonoBehaviour
 {
 
     private PolygonCollider2D playGround;
-    private GameObject enemy;
-    [SerializeField] private int enemyCount;
-    
+    [SerializeField] private GameObject enemy;
+    private int enemyCount;
+
+    private float timeRemaining;
+    [SerializeField] private float spawnDelay;
+    private float totalTime;
+
+    private int waveNumber;
+
+    [SerializeField] private Wave[] waves;
 
     // Start is called before the first frame update
     void Start()
     {
-        /*Ici on Get le PolygonCollider
-        ensuite on crée une variable permettant de connaitre les différents points du polygoncollider
-        on crée une variable qui va nous permettre de randomiser le point choisi, entre 0 et le nombre de points du polygoncollider
-        le chosenPoint est une variable 
+        StartCoroutine(Timer());
+        //SpawnEnemy();
 
+    }
 
-        */
+    void SpawnEnemy ()
+    {
         playGround = GetComponent<PolygonCollider2D>();
         var points = playGround.points;
         var randomIndex = Random.Range(0, points.Length);
         var chosenPoint = points[randomIndex];
         var otherPoint = Vector2.zero;
-        var positionToSpawn = Vector2.Lerp(chosenPoint, otherPoint, Random.value);
 
         if (randomIndex == 0)
         {
@@ -36,12 +42,33 @@ public class Spawn : MonoBehaviour
             otherPoint = points[randomIndex - 1];
         }
 
-        /*
-        while (enemyCount < 10)
+        var positionToSpawn = Vector2.Lerp(chosenPoint, otherPoint, Random.value);
+
+        enemyCount++;
+
+        Instantiate(enemy, positionToSpawn, Quaternion.identity);
+        
+    }
+
+    IEnumerator Timer ()
+    {
+       
+        while (enemyCount < waves[waveNumber].enemiesPerWave)
         {
-            Instantiate(enemy, chosenPoint, otherPoint); 
+            SpawnEnemy();
+            yield return new WaitForSeconds(waves[waveNumber].spawnDelay);
         }
-        */
+
+    }
+
+    public void EnemyDestroyed ()
+    {
+        enemyCount--;
+        if(enemyCount == 0)
+        {
+            waveNumber++;
+            StartCoroutine(Timer());
+        }
     }
 
 }
