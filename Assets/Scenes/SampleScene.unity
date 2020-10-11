@@ -773,5 +773,9 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 491346966741800710, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b4be4615d898da4f962fe1e70ab9fdd, type: 3}

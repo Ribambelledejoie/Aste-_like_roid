@@ -35,9 +35,14 @@ public class AsteroidsBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //On précise ici que si shouldStop est true, la velocity de l'asteroid passe à zéro
 
         var playerDirection = (rbPlayer.position - rb.position).normalized;
+
+        //https://www.youtube.com/watch?v=4Wh22ynlLyk&ab_channel=PressStart 
+
+        float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg - 90;
+        rb.rotation = angle;
+
 
         if (Mathf.Abs(rb.velocity.magnitude) <= maxSpeed)
         {

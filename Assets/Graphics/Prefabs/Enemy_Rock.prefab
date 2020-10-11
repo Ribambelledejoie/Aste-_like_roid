@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7539319462700150725, guid: 3585fd3c7fd614e4a953ad4d004e65a0, type: 3}
+  m_Sprite: {fileID: -1332198348812563698, guid: 3e1ff28181a98644288bf0e8b6640a7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -118,8 +118,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 5
+  m_Mass: 1.2083751
+  m_LinearDrag: 2
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -168,5 +168,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f82469b73517b048ba059a1e10ebc80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 10
-  maxSpeed: 11
+  enemySpeed: 20
+  maxSpeed: 30
