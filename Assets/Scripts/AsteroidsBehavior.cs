@@ -14,9 +14,11 @@ public class AsteroidsBehavior : MonoBehaviour
     private Rigidbody2D rbPlayer;
     private GameObject spawner;
     private Spawn spawn;
+    private Animator anim;
 
     [SerializeField] private float enemySpeed;
     [SerializeField] private float maxSpeed;
+    [SerializeField] private int healthPoint = 10;
 
     private void Start()
     {
@@ -53,8 +55,21 @@ public class AsteroidsBehavior : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //healthPoint -= 1; pareil avec ++
+        healthPoint--;
+        anim.SetBool("TakeDamage", true);
+
+        if (healthPoint <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnDestroy()
     {
+
         spawn.EnemyDestroyed();
     }
 
