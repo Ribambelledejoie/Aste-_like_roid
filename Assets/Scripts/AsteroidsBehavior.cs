@@ -32,7 +32,9 @@ public class AsteroidsBehavior : MonoBehaviour
         rbPlayer = player.GetComponent<Rigidbody2D>();
 
         spawn = spawner.GetComponent<Spawn>();
-        
+
+        anim = GetComponent<Animator>();
+
     }
 
     private void FixedUpdate()
@@ -65,6 +67,7 @@ public class AsteroidsBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
 
     private void OnDestroy()
