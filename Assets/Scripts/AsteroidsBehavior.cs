@@ -32,6 +32,7 @@ public class AsteroidsBehavior : MonoBehaviour
         rbPlayer = player.GetComponent<Rigidbody2D>();
 
         spawn = spawner.GetComponent<Spawn>();
+ 
 
         anim = GetComponent<Animator>();
 
@@ -61,7 +62,8 @@ public class AsteroidsBehavior : MonoBehaviour
     {
         //healthPoint -= 1; pareil avec ++
         healthPoint--;
-        anim.SetBool("TakeDamage", true);
+
+        anim.SetTrigger("Hit");
 
         if (healthPoint <= 0)
         {
@@ -72,7 +74,6 @@ public class AsteroidsBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
-
         spawn.EnemyDestroyed();
     }
 

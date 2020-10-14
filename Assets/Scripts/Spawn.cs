@@ -9,18 +9,16 @@ public class Spawn : MonoBehaviour
     [SerializeField] private GameObject enemy;
     private int enemyCount;
 
-    private float timeRemaining;
-    [SerializeField] private float spawnDelay;
-    private float totalTime;
-
     private int waveNumber;
+    private Wave actualWave;
 
-    [SerializeField] private Wave[] waves;
+    [SerializeField] private AnimationCurve numberEnemies;
+    [SerializeField] private AnimationCurve spawnDelay;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Timer());
+        LaunchNewWave();
         //SpawnEnemy();
 
     }
@@ -52,11 +50,53 @@ public class Spawn : MonoBehaviour
 
     IEnumerator Timer ()
     {
-       
-        while (enemyCount < waves[waveNumber].enemiesPerWave)
+
+        // while (enemyCount < numberEnemies.Evaluate(waveNumber))
+        Debug.Log(actualWave.enemiesPerWave);
+        while (enemyCount < actualWave.enemiesPerWave)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(waves[waveNumber].spawnDelay);
+            yield return new WaitForSeconds(actualWave.spawnDelay);
+        }
+
+    }
+
+    private void LaunchNewWave()
+    {
+
+        waveNumber++;
+        //Si notre waveNumber correspond au Time (x) de la dernière clé de la courbe numberEnemies
+        if (waveNumber == numberEnemies.keys[numberEnemies.keys.Length - 1].time)
+            ModifyCurves();
+
+        //RoundToInt : approcher le plus possible de la valeur
+        //FloorToInt : supprime la décimale
+
+        actualWave.enemiesPerWave = Mathf.RoundToInt(numberEnemies.Evaluate(waveNumber));
+        actualWave.spawnDelay = Mathf.RoundToInt(spawnDelay.Evaluate(waveNumber));
+
+        StartCoroutine(Timer());
+
+    }
+
+    private void ModifyCurves()
+    {
+
+        var lastKey = numberEnemies.keys[numberEnemies.keys.Length - 1];
+
+        //i pour index / tant que l'index est inférieur au nombre de clé, à chaque fin de boucle on va augmenter l'index de 1
+        for (var i = 0; i < numberEnemies.keys.Length; i++) 
+        {
+            numberEnemies.keys[i].time += lastKey.time;
+            numberEnemies.keys[i].value += lastKey.value;
+        }
+
+        lastKey = spawnDelay.keys[spawnDelay.keys.Length - 1];
+
+        for (var i = 0; i < spawnDelay.keys.Length; i++)
+        {
+            spawnDelay.keys[i].time += lastKey.time;
+            spawnDelay.keys[i].value += lastKey.value;
         }
 
     }
@@ -66,8 +106,7 @@ public class Spawn : MonoBehaviour
         enemyCount--;
         if(enemyCount == 0)
         {
-            waveNumber++;
-            StartCoroutine(Timer());
+            LaunchNewWave();
         }
     }
 

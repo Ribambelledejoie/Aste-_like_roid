@@ -155,7 +155,7 @@ MonoBehaviour:
   bulletForce: 200
   cam: {fileID: 0}
   angleCorrection: 90
-  fireRate: 0.3
+  fireRate: 0.1
 --- !u!50 &491346966741800711
 Rigidbody2D:
   serializedVersion: 4

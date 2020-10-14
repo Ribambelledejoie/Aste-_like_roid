@@ -156,4 +156,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 20
   maxSpeed: 30
-  healthPoint: 2
+  healthPoint: 1
