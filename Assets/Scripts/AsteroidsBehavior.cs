@@ -58,9 +58,15 @@ public class AsteroidsBehavior : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //healthPoint -= 1; pareil avec ++
+
+        if (collision.CompareTag("Spawn"))
+        {
+            return;
+        }
+
         healthPoint--;
 
         anim.SetTrigger("Hit");

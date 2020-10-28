@@ -6,9 +6,17 @@ public class HPBehavior : MonoBehaviour
 {
 
     [SerializeField] private int healthPoint = 10;
+    [SerializeField] string collisionTag;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(gameObject.name);
+
+        if(!collision.CompareTag(collisionTag))
+        {
+            return;
+        }
+
        //healthPoint -= 1; pareil avec ++
         healthPoint--;
 
