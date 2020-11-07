@@ -7,6 +7,7 @@ public class Spawn : MonoBehaviour
 
     private PolygonCollider2D playGround;
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject pickUp;
     private int enemyCount;
 
     private int waveNumber;
@@ -15,6 +16,7 @@ public class Spawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playGround = GetComponent<PolygonCollider2D>();
         LaunchNewWave();
         //SpawnEnemy();
 
@@ -22,7 +24,6 @@ public class Spawn : MonoBehaviour
 
     void SpawnEnemy ()
     {
-        playGround = GetComponent<PolygonCollider2D>();
         var points = playGround.points;
         var randomIndex = Random.Range(0, points.Length);
         var chosenPoint = points[randomIndex];
@@ -41,6 +42,33 @@ public class Spawn : MonoBehaviour
 
         Instantiate(enemy, positionToSpawn, Quaternion.identity);
         
+    }
+
+
+    // ici, on vient dire au jeu de spawn des pickups à l'intérieur de la zone de jeu playGround, et on instantiate les pickups après
+    void SpawnPickUp ()
+    {
+        var points = playGround.points;
+        var randomIndex = Random.Range(0, points.Length);
+        var chosenPoint = points[randomIndex];
+        var otherRandomIndex = Random.Range(0, points.Length);
+
+        if(Mathf.Abs(otherRandomIndex - randomIndex) <= 1)
+        {
+            otherRandomIndex += 2;
+        }
+
+        if(otherRandomIndex > points.Length - 1)
+        {
+            otherRandomIndex -= points.Length - 1;
+        }
+
+        var otherPoint = points[otherRandomIndex];
+
+        var positionToSpawn = Vector2.Lerp(chosenPoint, otherPoint, Random.value);
+
+        Instantiate(pickUp, positionToSpawn, Quaternion.identity);
+
     }
 
     IEnumerator Timer ()
@@ -62,6 +90,8 @@ public class Spawn : MonoBehaviour
 
     private void LaunchNewWave()
     {
+        // permet de faire spawn les pickups en début de chaque wave
+        SpawnPickUp();
 
         waveNumber++;
         actualWave = new Wave(waveNumber);

@@ -8,6 +8,7 @@ TagManager:
   - PlayerBullet
   - Spawn
   - EnemiesBullets
+  - Pickup
   layers:
   - Default
   - TransparentFX

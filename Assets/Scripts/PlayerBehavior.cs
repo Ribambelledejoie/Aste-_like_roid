@@ -21,15 +21,19 @@ public class PlayerBehavior : MonoBehaviour
     private CircleCollider2D shootArea;
     private bool inShootArea;
 
-    [SerializeField] private float speed = 0.0f;
-    [SerializeField] private float maxSpeed = 0.0f;
+    //les stats du joueur sont maintenant dans le PlayerStats.cs 
+
+   // [SerializeField] private float speed = 0.0f;
+   // [SerializeField] private float maxSpeed = 0.0f;
     [SerializeField] private Transform FirePoint;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private float bulletForce = 20.0f;
+   // [SerializeField] private float bulletForce = 20.0f;
     [SerializeField] private Camera cam;
     [SerializeField, Range(0, 360)] private int angleCorrection;
 
-    [SerializeField] private float fireRate = 1.0f;
+  //  [SerializeField] private float fireRate = 1.0f;
+
+    [SerializeField] private PlayerStats stat;
 
 
 
@@ -70,7 +74,7 @@ public class PlayerBehavior : MonoBehaviour
 
         isShooting = true;
 
-        if (timeRemaining == fireRate)
+        if (timeRemaining == stat.fireRate)
         {
             Shoot();
         }
@@ -96,7 +100,7 @@ public class PlayerBehavior : MonoBehaviour
 
         Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
 
-        rbBullet.AddForce(FirePoint.up * bulletForce, ForceMode2D.Impulse);
+        rbBullet.AddForce(FirePoint.up * stat.bulletForce, ForceMode2D.Impulse);
 
         Destroy(bullet, 1);
     }
@@ -123,16 +127,16 @@ public class PlayerBehavior : MonoBehaviour
     private void OnValidate()
     {
         // on veut faire en sorte que la valeur de la puissance de feu ne descende pas sous zéro
-        if (fireRate < 0)
+        if (stat.fireRate < 0)
         {
-            fireRate = 0;
+            stat.fireRate = 0;
         }
     }
 
     void Start()
     {
         //ici, le temps qu'il reste est égale à la vitesse à laquelle le joueur va pouvoir tirer
-        timeRemaining = fireRate;
+        timeRemaining = stat.fireRate;
 
         rb = GetComponent<Rigidbody2D>();
         transform.position = new Vector2(0.0f, -2.0f);
@@ -154,7 +158,7 @@ public class PlayerBehavior : MonoBehaviour
             else
             {
                 //et sinon, 
-                timeRemaining = fireRate;
+                timeRemaining = stat.fireRate;
                 Shoot();
             }
         }
@@ -175,9 +179,9 @@ public class PlayerBehavior : MonoBehaviour
 
         lookDir = (mousePos - rb.position).normalized;
 
-        if (Mathf.Abs(rb.velocity.magnitude) <= maxSpeed)
+        if (Mathf.Abs(rb.velocity.magnitude) <= stat.maxSpeed)
         {
-            rb.AddForce(speed * direction);
+            rb.AddForce(stat.speed * direction);
         }
     }
 
@@ -186,4 +190,16 @@ public class PlayerBehavior : MonoBehaviour
         //Lorsque le joueur meurt, on lui désactive ses inputs
         playerinputs.Disable();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+    
+        if(collision.CompareTag("Pickup"))
+        {
+            var statToMultiply = collision.GetComponent<UpgradeBehavior>().stat;
+            stat *= statToMultiply;
+            Destroy(collision.gameObject);
+        }
+    }
+
 }
