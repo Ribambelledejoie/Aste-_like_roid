@@ -69,8 +69,6 @@ public class AsteroidsBehavior : MonoBehaviour
 
         healthPoint--;
 
-        anim.SetTrigger("Hit");
-
         if (healthPoint <= 0)
         {
             Destroy(gameObject);
