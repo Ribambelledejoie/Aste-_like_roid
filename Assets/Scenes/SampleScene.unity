@@ -323,6 +323,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e2507ef7a50a29147b38d8923f5885d1, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2507ef7a50a29147b38d8923f5885d1, type: 3}
 --- !u!1 &377954455 stripped
@@ -436,19 +440,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &377954464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377954455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5a13a94e35f8c47af1594c787aa2b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: e29509c9dccfbf648801abc0b29fe9b1, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,9 +735,9 @@ GameObject:
   m_Component:
   - component: {fileID: 747952921}
   - component: {fileID: 747952920}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PlayGround
-  m_TagString: Spawn
+  m_TagString: PlayGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -806,7 +797,7 @@ GameObject:
   - component: {fileID: 1465312218}
   - component: {fileID: 1465312217}
   - component: {fileID: 1465312216}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Spawn Enemies
   m_TagString: Spawn
   m_Icon: {fileID: 0}

@@ -62,11 +62,6 @@ public class AsteroidsBehavior : MonoBehaviour
     {
         //healthPoint -= 1; pareil avec ++
 
-        if (collision.CompareTag("Spawn"))
-        {
-            return;
-        }
-
         healthPoint--;
 
         if (healthPoint <= 0)

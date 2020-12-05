@@ -9,6 +9,7 @@ TagManager:
   - Spawn
   - EnemiesBullets
   - Pickup
+  - PlayGround
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Player
   - Asteroid
   - PlayerBullet
-  - 
+  - GameArea01
   - 
   - 
   - 
