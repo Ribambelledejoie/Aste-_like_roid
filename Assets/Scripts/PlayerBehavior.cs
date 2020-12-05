@@ -21,6 +21,8 @@ public class PlayerBehavior : MonoBehaviour
     private CircleCollider2D shootArea;
     private bool inShootArea;
 
+    private GameObject debugCube;
+
     //les stats du joueur sont maintenant dans le PlayerStats.cs 
 
    // [SerializeField] private float speed = 0.0f;
@@ -57,12 +59,21 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void OnLookPerformed(InputAction.CallbackContext obj)
-    {
+    {    
 
         mousePos = obj.ReadValue<Vector2>();
 
-        mousePos = cam.ScreenToWorldPoint(mousePos);
+        mousePos.x = Mathf.Clamp(mousePos.x, 0, Screen.width);
 
+        mousePos.y = Mathf.Clamp(mousePos.y, 0, Screen.height);
+
+        Debug.Log(mousePos);
+
+        var mousePos3D = new Vector3(mousePos.x, mousePos.y, Mathf.Abs(cam.transform.position.z));
+
+        mousePos = cam.transform.position + cam.ScreenToWorldPoint(mousePos3D);
+
+        debugCube.transform.position = mousePos;
 
         //calcule le vecteur entre position souris et joueur
 
@@ -141,6 +152,8 @@ public class PlayerBehavior : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         transform.position = new Vector2(0.0f, -2.0f);
         anim = GetComponent<Animator>();
+
+        debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
     }
 
     //Magnitude = x et y
