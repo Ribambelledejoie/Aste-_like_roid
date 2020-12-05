@@ -78,7 +78,6 @@ public class Spawn : MonoBehaviour
 
         var enemySpawned = 0;
 
-        Debug.Log(actualWave.enemiesPerWave);
         while (enemySpawned < actualWave.enemiesPerWave)
         {
             SpawnEnemy();
@@ -109,7 +108,6 @@ public class Spawn : MonoBehaviour
         if(enemyCount == 0)
         {
             LaunchNewWave();
-            Debug.Log("new wave");
         }
     }
 
