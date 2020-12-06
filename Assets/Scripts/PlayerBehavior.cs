@@ -21,7 +21,6 @@ public class PlayerBehavior : MonoBehaviour
     private CircleCollider2D shootArea;
     private bool inShootArea;
 
-    private GameObject debugCube;
 
     //les stats du joueur sont maintenant dans le PlayerStats.cs 
 
@@ -67,13 +66,11 @@ public class PlayerBehavior : MonoBehaviour
 
         mousePos.y = Mathf.Clamp(mousePos.y, 0, Screen.height);
 
-        Debug.Log(mousePos);
+        mousePos /= new Vector2(Screen.width, Screen.height);
 
         var mousePos3D = new Vector3(mousePos.x, mousePos.y, Mathf.Abs(cam.transform.position.z));
 
-        mousePos = cam.transform.position + cam.ScreenToWorldPoint(mousePos3D);
-
-        debugCube.transform.position = mousePos;
+        mousePos = cam.ViewportToWorldPoint(mousePos);
 
         //calcule le vecteur entre position souris et joueur
 
@@ -153,7 +150,7 @@ public class PlayerBehavior : MonoBehaviour
         transform.position = new Vector2(0.0f, -2.0f);
         anim = GetComponent<Animator>();
 
-        debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        
     }
 
     //Magnitude = x et y
