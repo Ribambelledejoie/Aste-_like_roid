@@ -58,8 +58,9 @@ public class AsteroidsBehavior : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnHit()
     {
+
         //healthPoint -= 1; pareil avec ++
 
         healthPoint--;
@@ -68,11 +69,26 @@ public class AsteroidsBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        OnHit();
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject == player)
+        {
+            OnHit();
+        }
     }
 
     private void OnDestroy()
     {
+        Debug.Log("Destroy");
         spawn.EnemyDestroyed();
     }
 

@@ -10,6 +10,7 @@ TagManager:
   - EnemiesBullets
   - Pickup
   - PlayGround
+  - WeaponPickUp
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,6 @@ public class PlayerBehavior : MonoBehaviour
 {
 
     private Rigidbody2D rb;
-    private Animator anim;
     private Vector2 direction;
     //private Mouse mouse;
     private Vector2 mousePos;
@@ -18,31 +17,26 @@ public class PlayerBehavior : MonoBehaviour
 
     private PlayerInputs playerinputs;
 
-    private CircleCollider2D shootArea;
-    private bool inShootArea;
-
+    private HPPlayer hpRef;
 
     //les stats du joueur sont maintenant dans le PlayerStats.cs 
 
-   // [SerializeField] private float speed = 0.0f;
-   // [SerializeField] private float maxSpeed = 0.0f;
     [SerializeField] private Transform FirePoint;
     [SerializeField] private GameObject bulletPrefab;
-   // [SerializeField] private float bulletForce = 20.0f;
+
     [SerializeField] private Camera cam;
     [SerializeField, Range(0, 360)] private int angleCorrection;
 
-  //  [SerializeField] private float fireRate = 1.0f;
 
     [SerializeField] private PlayerStats stat;
 
+    [SerializeField] private GameObject shield;
 
-
+    [SerializeField] private Weapon actualGun;
 
     private void OnMoveCancelled(InputAction.CallbackContext obj)
     {
         direction = new Vector2(0.0f, 0.0f);
-        anim.SetBool("IsMoving", false);
     }
 
     private void OnMovePerformed(InputAction.CallbackContext obj)
@@ -53,7 +47,6 @@ public class PlayerBehavior : MonoBehaviour
 
         direction = obj.ReadValue<Vector2>();
 
-        anim.SetBool("IsMoving", true);
 
     }
 
@@ -82,9 +75,9 @@ public class PlayerBehavior : MonoBehaviour
 
         isShooting = true;
 
-        if (timeRemaining == stat.fireRate)
+        if (timeRemaining == stat.fireRate * actualGun.fireRate)
         {
-            Shoot();
+            actualGun.Shoot(FirePoint);
         }
 
 
@@ -102,16 +95,6 @@ public class PlayerBehavior : MonoBehaviour
 
     }
 
-    private void Shoot()
-    {
-        GameObject bullet = Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
-
-        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-
-        rbBullet.AddForce(FirePoint.up * stat.bulletForce, ForceMode2D.Impulse);
-
-        Destroy(bullet, 1);
-    }
 
     /// <summary>
     /// blablablablabla
@@ -144,13 +127,13 @@ public class PlayerBehavior : MonoBehaviour
     void Start()
     {
         //ici, le temps qu'il reste est égale à la vitesse à laquelle le joueur va pouvoir tirer
-        timeRemaining = stat.fireRate;
+        timeRemaining = stat.fireRate * actualGun.fireRate;
 
         rb = GetComponent<Rigidbody2D>();
         transform.position = new Vector2(0.0f, -2.0f);
-        anim = GetComponent<Animator>();
 
-        
+        hpRef = GetComponent<HPPlayer>();
+
     }
 
     //Magnitude = x et y
@@ -168,17 +151,23 @@ public class PlayerBehavior : MonoBehaviour
             else
             {
                 //et sinon, 
-                timeRemaining = stat.fireRate;
-                Shoot();
+                timeRemaining = stat.fireRate * actualGun.fireRate;
+                actualGun.Shoot(FirePoint);
             }
         }
 
-
-        anim.SetFloat("Speed", rb.velocity.magnitude);
-
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - angleCorrection;
 
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        var rotationForce = 0.01f;
+
+        if(direction.sqrMagnitude == 0)
+        {
+            rotationForce = 1;
+        }     
+
+        var targetAxis = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetAxis, rotationForce);
 
     }
 
@@ -206,10 +195,25 @@ public class PlayerBehavior : MonoBehaviour
     
         if(collision.CompareTag("Pickup"))
         {
-            var statToMultiply = collision.GetComponent<UpgradeBehavior>().stat;
-            stat *= statToMultiply;
+            hpRef.healthPoint = 2;
+
+            shield.SetActive(true);
+
             Destroy(collision.gameObject);
         }
+
+        if(collision.CompareTag("WeaponPickUp"))
+        {
+            actualGun = collision.GetComponent<WeaponPickUp>().weaponToPick;
+
+            Destroy(collision.gameObject);
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        shield.SetActive(false);
     }
 
 }

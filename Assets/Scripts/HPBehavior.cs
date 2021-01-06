@@ -5,7 +5,7 @@ using UnityEngine;
 public class HPBehavior : MonoBehaviour
 {
 
-    [SerializeField] private int healthPoint = 10;
+    public int healthPoint = 10;
     [SerializeField] string collisionTag;
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -7,7 +7,8 @@ public class Spawn : MonoBehaviour
 
     private PolygonCollider2D playGround;
     [SerializeField] private GameObject enemy;
-    [SerializeField] private GameObject pickUp;
+    [SerializeField] private GameObject healthPickUp;
+    [SerializeField] private GameObject weaponPickUp;
     private int enemyCount;
 
     private int waveNumber;
@@ -45,8 +46,10 @@ public class Spawn : MonoBehaviour
     }
 
 
-    // ici, on vient dire au jeu de spawn des pickups à l'intérieur de la zone de jeu playGround, et on instantiate les pickups après
-    void SpawnPickUp ()
+    /// <summary>
+    ///  ici, on vient dire au jeu de spawn des pickups à l'intérieur de la zone de jeu playGround, et on instantiate les pickups après
+    /// </summary>
+    void SpawnPickUp (GameObject pickUpToSpawn)
     {
         var points = playGround.points;
         var randomIndex = Random.Range(0, points.Length);
@@ -67,7 +70,7 @@ public class Spawn : MonoBehaviour
 
         var positionToSpawn = Vector2.Lerp(chosenPoint, otherPoint, Random.value);
 
-        Instantiate(pickUp, positionToSpawn, Quaternion.identity);
+        Instantiate(pickUpToSpawn, positionToSpawn, Quaternion.identity);
 
     }
 
@@ -90,14 +93,22 @@ public class Spawn : MonoBehaviour
     private void LaunchNewWave()
     {
         // permet de faire spawn les pickups en début de chaque wave
-        SpawnPickUp();
+        SpawnPickUp(healthPickUp);
 
         waveNumber++;
+
+        if(waveNumber %5 == 0)
+        {
+            SpawnPickUp(weaponPickUp);
+        }
+
         actualWave = new Wave(waveNumber);
 
         enemyCount = actualWave.enemiesPerWave;
         
         StartCoroutine(Timer());
+
+        
 
     }
 
