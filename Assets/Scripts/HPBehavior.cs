@@ -1,22 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HPBehavior : MonoBehaviour
 {
 
-    public int healthPoint = 10;
-    [SerializeField] string collisionTag;
+    [SerializeField] int healthPoint;
+    [SerializeField] string[] collisionTags;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        var collisionTag = collision.tag;
 
-        if(!collision.CompareTag(collisionTag))
+        if(!System.Array.Exists(collisionTags, el => el == collisionTag))
         {
             return;
         }
 
-       //healthPoint -= 1; pareil avec ++
         healthPoint--;
 
         if (healthPoint <= 0)

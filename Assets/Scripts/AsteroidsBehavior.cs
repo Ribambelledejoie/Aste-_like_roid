@@ -12,13 +12,9 @@ public class AsteroidsBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private GameObject player;
     private Rigidbody2D rbPlayer;
-    private GameObject spawner;
-    private Spawn spawn;
-    private Animator anim;
 
     [SerializeField] private float enemySpeed;
     [SerializeField] private float maxSpeed;
-    [SerializeField] private int healthPoint = 10;
 
     private void Start()
     {
@@ -27,23 +23,19 @@ public class AsteroidsBehavior : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
 
-        spawner = GameObject.FindWithTag("Spawn");
-
         rbPlayer = player.GetComponent<Rigidbody2D>();
-
-        spawn = spawner.GetComponent<Spawn>();
- 
-
-        anim = GetComponent<Animator>();
-
     }
 
     private void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
+        //https://www.youtube.com/watch?v=4Wh22ynlLyk&ab_channel=PressStart 
 
         var playerDirection = (rbPlayer.position - rb.position).normalized;
-
-        //https://www.youtube.com/watch?v=4Wh22ynlLyk&ab_channel=PressStart 
 
         float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg - 90;
         rb.rotation = angle;
@@ -54,42 +46,6 @@ public class AsteroidsBehavior : MonoBehaviour
             rb.AddForce(enemySpeed * playerDirection);
 
         }
-
-
-    }
-
-    private void OnHit()
-    {
-
-        //healthPoint -= 1; pareil avec ++
-
-        healthPoint--;
-
-        if (healthPoint <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-        OnHit();
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject == player)
-        {
-            OnHit();
-        }
-    }
-
-    private void OnDestroy()
-    {
-        Debug.Log("Destroy");
-        spawn.EnemyDestroyed();
     }
 
 }

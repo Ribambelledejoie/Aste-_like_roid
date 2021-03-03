@@ -6,11 +6,6 @@ TagManager:
   tags:
   - Enemies
   - PlayerBullet
-  - Spawn
-  - EnemiesBullets
-  - Pickup
-  - PlayGround
-  - WeaponPickUp
   layers:
   - Default
   - TransparentFX
@@ -18,14 +13,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
   - Enemy
-  - Projectile Enemy
   - Player
-  - Asteroid
   - PlayerBullet
-  - GameArea01
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

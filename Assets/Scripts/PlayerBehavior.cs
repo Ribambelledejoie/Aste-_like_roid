@@ -1,14 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerBehavior : MonoBehaviour
 {
-
     private Rigidbody2D rb;
     private Vector2 direction;
-    //private Mouse mouse;
     private Vector2 mousePos;
     private Vector2 lookDir;
 
@@ -16,43 +12,28 @@ public class PlayerBehavior : MonoBehaviour
     private float timeRemaining = 1.0f;
 
     private PlayerInputs playerinputs;
-
-    private HPPlayer hpRef;
-
-    //les stats du joueur sont maintenant dans le PlayerStats.cs 
-
+    
+    [Header("Stats")]
+    [SerializeField] private float speed;
+    [SerializeField] private float maxSpeed;
+    [Header("Misc")]
     [SerializeField] private Transform FirePoint;
-    [SerializeField] private GameObject bulletPrefab;
-
     [SerializeField] private Camera cam;
     [SerializeField, Range(0, 360)] private int angleCorrection;
-
-
-    [SerializeField] private PlayerStats stat;
-
-    [SerializeField] private GameObject shield;
-
     [SerializeField] private Weapon actualGun;
 
-    private void OnMoveCancelled(InputAction.CallbackContext obj)
+    private void OnMoveCanceled(InputAction.CallbackContext obj)
     {
         direction = new Vector2(0.0f, 0.0f);
     }
 
     private void OnMovePerformed(InputAction.CallbackContext obj)
     {
-        //direction = stickDirection 
-
-        //récupère valeur input
-
         direction = obj.ReadValue<Vector2>();
-
-
     }
 
     private void OnLookPerformed(InputAction.CallbackContext obj)
     {    
-
         mousePos = obj.ReadValue<Vector2>();
 
         mousePos.x = Mathf.Clamp(mousePos.x, 0, Screen.width);
@@ -64,156 +45,93 @@ public class PlayerBehavior : MonoBehaviour
         var mousePos3D = new Vector3(mousePos.x, mousePos.y, Mathf.Abs(cam.transform.position.z));
 
         mousePos = cam.ViewportToWorldPoint(mousePos);
-
-        //calcule le vecteur entre position souris et joueur
-
     }
 
 
     private void OnShootPerformed(InputAction.CallbackContext obj)
     {
-
         isShooting = true;
 
-        if (timeRemaining == stat.fireRate * actualGun.fireRate)
+        if (timeRemaining == actualGun.fireRate)
         {
             actualGun.Shoot(FirePoint);
         }
-
-
     }
 
 
     private void OnShootCanceled(InputAction.CallbackContext obj)
-
     {
         isShooting = false;
     }
 
-    private void OnJumpPerformed(InputAction.CallbackContext obj)
-    {
-
-    }
-
-
-    /// <summary>
-    /// blablablablabla
-    /// </summary>
     private void OnEnable()
     {
-        //permet d'appeler les inputs (?)
-        //fonction TODO (peut etre) permet de mieux lire les commentaires
-        //va faire en sorte d'assigner une fonction de retour à un input : important !!! pas oublier !
         playerinputs = new PlayerInputs();
         playerinputs.Enable();
         playerinputs.Player.Shoot.performed += OnShootPerformed;
         playerinputs.Player.Shoot.canceled += OnShootCanceled;
         playerinputs.Player.Move.performed += OnMovePerformed;
         playerinputs.Player.MousePosition.performed += OnLookPerformed;
-        playerinputs.Player.Move.canceled += OnMoveCancelled;
-        playerinputs.Player.Jump.performed += OnJumpPerformed;
-
+        playerinputs.Player.Move.canceled += OnMoveCanceled;
     }
 
-    private void OnValidate()
-    {
-        // on veut faire en sorte que la valeur de la puissance de feu ne descende pas sous zéro
-        if (stat.fireRate < 0)
-        {
-            stat.fireRate = 0;
-        }
-    }
 
     void Start()
     {
-        //ici, le temps qu'il reste est égale à la vitesse à laquelle le joueur va pouvoir tirer
-        timeRemaining = stat.fireRate * actualGun.fireRate;
-
+        timeRemaining = actualGun.fireRate;
         rb = GetComponent<Rigidbody2D>();
-        transform.position = new Vector2(0.0f, -2.0f);
-
-        hpRef = GetComponent<HPPlayer>();
-
     }
 
-    //Magnitude = x et y
     private void Update()
     {
-        //Si on est entrain de tirer
+        Shoot();
+        Look();   
+    }
+
+    private void Shoot()
+    {
         if (isShooting)
         {
-            //Et s'il reste du temps
             if (timeRemaining > 0)
             {
-                //On enlève du temps au temps qu'il reste - Time.deltaTime = temps en seconde depuis la dernière frame
                 timeRemaining -= Time.deltaTime;
             }
             else
             {
-                //et sinon, 
-                timeRemaining = stat.fireRate * actualGun.fireRate;
+                timeRemaining = actualGun.fireRate;
                 actualGun.Shoot(FirePoint);
             }
         }
+    }
 
+    private void Look()
+    {
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - angleCorrection;
 
         var rotationForce = 0.01f;
 
-        if(direction.sqrMagnitude == 0)
+        if (direction.sqrMagnitude == 0)
         {
             rotationForce = 1;
-        }     
+        }
 
         var targetAxis = Quaternion.AngleAxis(angle, Vector3.forward);
 
         transform.rotation = Quaternion.Lerp(transform.rotation, targetAxis, rotationForce);
-
     }
 
-
-    //addforce ===== rigibody obligatoire !
     void FixedUpdate()
     {
-
         lookDir = (mousePos - rb.position).normalized;
 
-        if (Mathf.Abs(rb.velocity.magnitude) <= stat.maxSpeed)
+        if (Mathf.Abs(rb.velocity.magnitude) <= maxSpeed)
         {
-            rb.AddForce(stat.speed * direction);
+            rb.AddForce(speed * direction);
         }
     }
 
     private void OnDestroy()
     {
-        //Lorsque le joueur meurt, on lui désactive ses inputs
         playerinputs.Disable();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-    
-        if(collision.CompareTag("Pickup"))
-        {
-            hpRef.healthPoint = 2;
-
-            shield.SetActive(true);
-
-            Destroy(collision.gameObject);
-        }
-
-        if(collision.CompareTag("WeaponPickUp"))
-        {
-            actualGun = collision.GetComponent<WeaponPickUp>().weaponToPick;
-
-            Destroy(collision.gameObject);
-        }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        shield.SetActive(false);
-    }
-
 }
