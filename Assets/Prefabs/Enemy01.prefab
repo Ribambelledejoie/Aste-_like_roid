@@ -179,6 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c1906d76d016c4f971ebb8430a3e4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 1
+  healthPoint: 2
   collisionTags:
   - PlayerBullet
