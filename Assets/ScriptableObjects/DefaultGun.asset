@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DefaultGun
   m_EditorClassIdentifier: 
   bullet: {fileID: 4639250773975818566, guid: 84de937a30e321649bdc66cc36ed8332, type: 3}
-  fireRate: 1
+  fireRate: 0.5
   bulletForce: 50
