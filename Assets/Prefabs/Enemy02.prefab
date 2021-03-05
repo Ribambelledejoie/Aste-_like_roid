@@ -7,13 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1107457181302589694, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1107457181302589694, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.125
+      objectReference: {fileID: 0}
     - target: {fileID: 2277509613279282456, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
       propertyPath: healthPoint
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5487243879674162458, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
       propertyPath: maxSpeed
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5487243879674162458, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
       propertyPath: enemySpeed
