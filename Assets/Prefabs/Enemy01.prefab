@@ -182,3 +182,4 @@ MonoBehaviour:
   healthPoint: 2
   collisionTags:
   - PlayerBullet
+  type: 2

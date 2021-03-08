@@ -13,11 +13,13 @@ public class AsteroidsBehavior : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rbPlayer;
 
-    [SerializeField] private float enemySpeed;
-    [SerializeField] private float maxSpeed;
+    public float enemySpeed;
+    public float maxSpeed;
+
 
     private void Start()
     {
+
         //ici on Get le Rigidbody2D dans le start
         rb = GetComponent<Rigidbody2D>();
 
@@ -46,6 +48,11 @@ public class AsteroidsBehavior : MonoBehaviour
             rb.AddForce(enemySpeed * playerDirection);
 
         }
+    }
+
+    public void ChangeSpeed(float speed)
+    {
+        rb.velocity *= speed;
     }
 
 }
