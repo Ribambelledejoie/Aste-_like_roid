@@ -29,6 +29,15 @@ TextureImporter:
   - first:
       213: -2144180636705064052
     second: Enemy01_Hit_8
+  - first:
+      213: -1581989608896787164
+    second: Enemy01_Hit_9
+  - first:
+      213: -4244140853230336708
+    second: Enemy01_Hit_10
+  - first:
+      213: -8828795156745357733
+    second: Enemy01_Hit_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -302,6 +311,69 @@ TextureImporter:
       bones: []
       spriteID: c8b7cee32175e32e0800000000000000
       internalID: -2144180636705064052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy01_Hit_9
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42d095b15d4ab0ae0800000000000000
+      internalID: -1581989608896787164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy01_Hit_10
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c358b726168c915c0800000000000000
+      internalID: -4244140853230336708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy01_Hit_11
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b56f087f491d97580800000000000000
+      internalID: -8828795156745357733
       vertices: []
       indices: 
       edges: []
