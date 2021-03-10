@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487243879674162458, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
       propertyPath: enemySpeed
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8649997635908058704, guid: 7f629648fb178524cbcb941072fe96f2, type: 3}
       propertyPath: m_Sprite
