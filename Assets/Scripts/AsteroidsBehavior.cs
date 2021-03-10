@@ -13,14 +13,43 @@ public class AsteroidsBehavior : MonoBehaviour
     private GameObject player;
     private Rigidbody2D rbPlayer;
 
+    private Animator anim;
+
     public float enemySpeed;
     public float maxSpeed;
 
+    public static int enemyNumber;
+
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+    private void OnHit()
+    {
+
+        anim.SetTrigger("hit");
+
+        ChangeSpeed(0.1f);
+    }
+
+    private void OnDestroy()
+    {
+        enemyNumber--;
+
+        if(enemyNumber <= 0)
+        {
+            GameObject.FindGameObjectWithTag("GameManagere").GetComponent<ChangeLevel>().ChangeScene();
+        }
+    }
 
     private void Start()
     {
+        enemyNumber++;
 
-        //ici on Get le Rigidbody2D dans le start
+        GetComponent<HPBehavior>().onHit.AddListener(OnHit);
+
         rb = GetComponent<Rigidbody2D>();
 
         player = GameObject.FindWithTag("Player");

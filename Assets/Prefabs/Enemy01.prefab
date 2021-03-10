@@ -182,4 +182,7 @@ MonoBehaviour:
   healthPoint: 2
   collisionTags:
   - PlayerBullet
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
   type: 2
