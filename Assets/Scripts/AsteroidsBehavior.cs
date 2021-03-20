@@ -15,10 +15,10 @@ public class AsteroidsBehavior : MonoBehaviour
 
     private Animator anim;
 
-    public float enemySpeed;
-    public float maxSpeed;
+    [SerializeField] private float enemySpeed;
+    [SerializeField] private float maxSpeed;
 
-    public static int enemyNumber;
+    private static int enemyNumber;
 
 
     private void Awake()
@@ -79,7 +79,7 @@ public class AsteroidsBehavior : MonoBehaviour
         }
     }
 
-    public void ChangeSpeed(float speed)
+    private void ChangeSpeed(float speed)
     {
         rb.velocity *= speed;
     }
